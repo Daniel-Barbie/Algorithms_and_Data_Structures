@@ -71,9 +71,10 @@ print(ll)
 # list_ = [[1,"A"], [2,"B"], [3,"C"], [4,"D"], [5,"E"]]
 # create_linked_list(list_)
 
-elements_to_insert =
-
-ll.insert(2,"X")
-ll.insert(4,"Y")
-ll.insert(3.5,"3.5")
+elements_to_insert = [DataObject(2, "X"),
+                      DataObject(4, "Y"),
+                      DataObject(3.5, "3.5"),
+                      DataObject(1, "one")]
+for i in elements_to_insert:
+    ll.insert(i.key, i.data)
 print(ll)
