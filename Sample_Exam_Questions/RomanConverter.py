@@ -58,3 +58,4 @@ class RomanConverter:
 rc = RomanConverter()
 print(rc.convert_to_roman(114))
 print(rc.convert_to_integer("MXIV"))
+print(rc.convert_to_integer("MCXV"))

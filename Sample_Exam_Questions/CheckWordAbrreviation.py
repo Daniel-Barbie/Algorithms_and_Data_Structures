@@ -1,5 +1,4 @@
 def check_word_abbr(word, abbr):
-    digit_pos = []
     i = 0
     j = 0
     while j < len(abbr):
@@ -9,12 +8,11 @@ def check_word_abbr(word, abbr):
                 z += 1
             i += int(abbr[j:z])
             j = z
+        elif word[i] == abbr[j]:
+            i += 1
+            j += 1
         else:
-            if word[i] == abbr[j]:
-                i += 1
-                j += 1
-            else:
-                return False
+            return False
     if i == len(word):
         return True
     return False
