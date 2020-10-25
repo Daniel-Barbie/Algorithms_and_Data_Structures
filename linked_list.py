@@ -1,3 +1,8 @@
+import time
+import random
+import matplotlib.pyplot as plt
+
+
 class Node():
 
     def __init__(self, key, data, pointer=None):
@@ -66,15 +71,62 @@ def create_ll(n):
     return ll
 
 
+# return time-complexity for a tree of 'n' objects with 'k' sampled keys to apply 'get' with
+#def test_ll_time_complexity(node, n):
+#    start = time.time()
+#    for i in range(n):
+#        node.insert()
+#    end = time.time()
+#    print("Tree creation took {} seconds.".format(end-start))
+#    samplelist = random.sample(objectlist, k)
+#    start = time.time_ns()
+#    for i in samplelist:
+#        bst.get(i.key)
+#    end = time.time_ns()
+#    seconds = end-start
+#    return seconds
+
+
+# create initial ll with 5 Nodes
 ll = create_ll(5)
 print(ll)
-# list_ = [[1,"A"], [2,"B"], [3,"C"], [4,"D"], [5,"E"]]
-# create_linked_list(list_)
 
+# define elements to insert for testing
 elements_to_insert = [DataObject(2, "X"),
                       DataObject(4, "Y"),
                       DataObject(3.5, "3.5"),
                       DataObject(1, "one")]
+# insert elements
 for i in elements_to_insert:
     ll.insert(i.key, i.data)
 print(ll)
+
+reps_list = [1000000, 2000000, 4000000, 8000000]
+time_complexity_results = []
+
+for i in reps_list:
+    start = time.time_ns()
+    for j in range(i):
+        curr_element_to_insert = elements_to_insert[j % 4]
+        ll.insert(curr_element_to_insert.key, curr_element_to_insert.data)
+    end = time.time_ns()
+    time_complexity_results.append(end-start)
+
+
+# # get time complexity for tree sizes in reps_list
+# for i in reps_list:
+#     for j in range(i):
+#         time_complexity_results.append(test_ll_time_complexity(i, 1000))
+#     print(time_complexity_results)
+#
+# # get average time complexity for a single 'get' call per tree size of 'reps_list'
+# time_complexity_results_1 = []
+# for i in time_complexity_results:
+#     time_complexity_results_1.append(i/1000)
+
+print(reps_list, time_complexity_results)
+# plot all the time complexities
+plt.plot(reps_list, time_complexity_results)
+ax = plt.gca()
+ax.get_xaxis().get_major_formatter().set_useOffset(False)
+plt.show()
