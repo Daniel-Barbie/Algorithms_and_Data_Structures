@@ -42,7 +42,9 @@ class Node():
             old_top_node = Node(self.data)
             old_top_node.pointer = self.pointer
             self.pointer = old_top_node
+            self.data = data
             return True
+        return False
 
     def insert_bottom(self, data):
         current_node = self
@@ -86,4 +88,8 @@ print(ll)
 ll.insert(1, 5)
 print(ll)
 ll.delete(1)
+print(ll)
+ll.insert_top(10)
+print(ll)
+ll.insert_bottom(20)
 print(ll)
