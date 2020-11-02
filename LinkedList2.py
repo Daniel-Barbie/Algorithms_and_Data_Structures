@@ -1,14 +1,12 @@
-class Node():
+class LinkedList():
 
-    def __init__(self, data):
-        self.data = data
-        self.pointer = None
-        self.head = False
+    def __init__(self, head=None):
+        self.head = head
 
     # inefficient, needs refactoring:
     def __repr__(self):
         elements = []
-        current_node = self
+        current_node = self.head
         while current_node:
             elements.append(current_node.data)
             current_node = current_node.pointer
@@ -18,12 +16,9 @@ class Node():
         return_string += "STOP"
         return return_string
 
-    def set_head(self):
-        self.head = True
-
     def insert(self, key, data):
-        current_node = self
-        next_node = self.pointer
+        current_node = self.head
+        next_node = self.head.pointer
         while current_node.data != key:
             if next_node is None:
                 return False
@@ -39,14 +34,15 @@ class Node():
 
     def insert_top(self, data):
         if self.head:
-            old_top_node = Node(self.data)
-            old_top_node.pointer = self.pointer
-            self.pointer = old_top_node
+            new_top_node = Node(data)
+            new_top_node.pointer = self.head
+            self.head = new_top_node
             return True
+        self.head = Node(data)
 
     def insert_bottom(self, data):
-        current_node = self
-        next_node = self.pointer
+        current_node = self.head
+        next_node = self.head.pointer
         while next_node is not None:
             current_node = next_node
             next_node = current_node.pointer
@@ -55,23 +51,33 @@ class Node():
 
     def delete(self, key):
         last_node = None
-        current_node = self
-        next_node = self.pointer
+        current_node = self.head
+        next_node = self.head.pointer
         while current_node.data != key:
             if next_node is None:
                 return False
             last_node = current_node
             current_node = next_node
             next_node = current_node.pointer
-        last_node.pointer = next_node
+        if last_node is None:
+            self.head = current_node.pointer
+        else:
+            last_node.pointer = next_node
         del current_node
         return True
 
 
+class Node():
+
+    def __init__(self, data):
+        self.data = data
+        self.pointer = None
+        self.head = False
+
+
 # test it out!
 
-ll = Node(1)
-ll.set_head()
+ll = LinkedList(Node(1))
 print(ll)
 ll.insert(1, 2)
 print(ll)
@@ -81,5 +87,9 @@ ll.insert(2, 4)
 print(ll)
 ll.insert(1, 5)
 print(ll)
-
-
+ll.insert_top(10)
+print(ll)
+ll.insert_bottom(20)
+print(ll)
+ll.delete(10)
+print(ll)

@@ -63,8 +63,12 @@ class Node():
             last_node = current_node
             current_node = next_node
             next_node = current_node.pointer
-        last_node.pointer = next_node
-        del current_node
+        if last_node is None:
+            self.data = current_node.pointer.data
+            self.pointer = current_node.pointer.pointer
+        else:
+            last_node.pointer = next_node
+            del current_node
         return True
 
 
@@ -81,5 +85,5 @@ ll.insert(2, 4)
 print(ll)
 ll.insert(1, 5)
 print(ll)
-
-
+ll.delete(1)
+print(ll)
