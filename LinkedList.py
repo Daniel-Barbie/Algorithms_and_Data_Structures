@@ -9,7 +9,7 @@ class Node:
         self.pointer = None
         self.head = False
 
-    # inefficient, needs refactoring:
+    # inefficient, needs refactoring
     def __repr__(self):
         elements = []
         current_node = self
@@ -18,8 +18,10 @@ class Node:
             current_node = current_node.pointer
         return_string = ""
         for i in elements:
-            return_string += "{}, ".format(i)
-        return_string += "STOP"
+            if return_string == "":
+                return_string += "{}".format(i)
+            else:
+                return_string += " -> {}".format(i)
         return return_string
 
     def set_head(self):
@@ -117,16 +119,22 @@ def get_time_complexity(list_):
         # for i in range(5):
         #    report_element.append(ll.insert(0, 100))
         for i in range(5):
-            start = time.time()
+            start = time.time_ns()
             ll.insert(10, 100)
-            end = time.time()
+            end = time.time_ns()
             seconds = end - start
             report_element2.append(seconds)
         # report.append(report_element)
         report.append(report_element2)
     for idx, e in enumerate(report):
-        print(e, list_[idx])
+        print("Insertion times for a list of size {}: {}".format(list_[idx], e))
 
 
-# test()
+
+test()
 get_time_complexity([10, 100, 1000, 5000])
+
+
+# Time complexity = O(1)
+# note: my output is almost always at 0 ns for the time, but this is probably because of rounding
+# sometimes, there appears a number != 0
